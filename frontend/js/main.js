@@ -1,13 +1,13 @@
-// frontend/js/main.js
+// main.js
 
 async function makePrediction() {
     const model = document.getElementById("model").value;
     const featuresInput = document.getElementById("features").value;
     const resultDiv = document.getElementById("result");
 
-    // Clear previous results or messages
+    // Clear previous results
     resultDiv.innerText = "";
-    resultDiv.style.color = "#333"; // Default color
+    resultDiv.style.color = "#333";
 
     // Check for empty input
     if (!featuresInput) {
@@ -26,10 +26,9 @@ async function makePrediction() {
 
     // Show loading message
     resultDiv.innerText = "Loading...";
-    resultDiv.style.color = "#333";
 
     try {
-        const response = await fetch("http://127.0.0.1:5000/predict", {
+        const response = await fetch("https://your-app-name.onrender.com/predict", { // Replace with Render URL
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -40,7 +39,7 @@ async function makePrediction() {
         const result = await response.json();
 
         if (response.ok) {
-            resultDiv.innerText = `Success! Model: ${result.model}, Prediction: ${result.prediction}`;
+            resultDiv.innerText = `Model: ${result.model}, Prediction: ${result.prediction}`;
             resultDiv.style.color = "green"; // Success message color
         } else {
             resultDiv.innerText = `Error: ${result.error}`;
